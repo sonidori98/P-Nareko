@@ -2,6 +2,8 @@
 
 This is a simple DirectX 11 project that displays a rotating Nareko pyramid.
 
+![Image](https://github.com/user-attachments/assets/cb8f14a8-6091-4947-9b43-88bc482a2b30)
+
 ## Description
 
 The application initializes a DirectX 11 device, creates a 3D pyramid, and applies a texture to it from the `Nareko.png` file. The pyramid rotates automatically.
