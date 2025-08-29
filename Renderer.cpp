@@ -143,12 +143,10 @@ HRESULT Renderer::Init(HWND hWnd) {
     hr = InitBuffers();
     if (FAILED(hr)) return hr;
 
-    // Load the Texture
     hr = CreateWICTextureFromFile(m_pd3dDevice, L"Nareko.png", nullptr, &m_pTextureRV);
     if (FAILED(hr))
         return hr;
 
-    // Create the sample state
     D3D11_SAMPLER_DESC sampDesc = {};
     sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
     sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -217,7 +215,6 @@ HRESULT Renderer::InitDevice(HWND hWnd) {
     if (pBackBuffer) pBackBuffer->Release();
     if (FAILED(hr)) return hr;
 
-    // Create depth stencil texture
     D3D11_TEXTURE2D_DESC descDepth = {};
     descDepth.Width = width;
     descDepth.Height = height;
@@ -234,7 +231,6 @@ HRESULT Renderer::InitDevice(HWND hWnd) {
     if (FAILED(hr))
         return hr;
 
-    // Create the depth stencil view
     D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
     descDSV.Format = descDepth.Format;
     descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
@@ -245,7 +241,6 @@ HRESULT Renderer::InitDevice(HWND hWnd) {
 
     m_pd3dImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_pDepthStencilView);
 
-    // Setup the viewport
     D3D11_VIEWPORT vp;
     vp.Width = (FLOAT)width;
     vp.Height = (FLOAT)height;
@@ -255,7 +250,6 @@ HRESULT Renderer::InitDevice(HWND hWnd) {
     vp.TopLeftY = 0;
     m_pd3dImmediateContext->RSSetViewports(1, &vp);
 
-    // Create the depth stencil state
     D3D11_DEPTH_STENCIL_DESC dsDesc = {};
     dsDesc.DepthEnable = true;
     dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
@@ -264,7 +258,6 @@ HRESULT Renderer::InitDevice(HWND hWnd) {
     m_pd3dDevice->CreateDepthStencilState(&dsDesc, &m_pDepthStencilState);
     m_pd3dImmediateContext->OMSetDepthStencilState(m_pDepthStencilState, 1);
 
-    // Create the rasterizer state
     D3D11_RASTERIZER_DESC rsDesc = {};
     rsDesc.FillMode = D3D11_FILL_SOLID;
     rsDesc.CullMode = D3D11_CULL_NONE;
@@ -279,7 +272,6 @@ HRESULT Renderer::InitDevice(HWND hWnd) {
     m_pd3dDevice->CreateRasterizerState(&rsDesc, &m_pRasterizerState);
     m_pd3dImmediateContext->RSSetState(m_pRasterizerState);
 
-    // Create the blend state
     D3D11_BLEND_DESC blendDesc = {};
     blendDesc.RenderTarget[0].BlendEnable = TRUE;
     blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
@@ -293,13 +285,11 @@ HRESULT Renderer::InitDevice(HWND hWnd) {
     if (FAILED(hr))
         return hr;
 
-    // Initialize the view matrix
 	XMVECTOR Eye = XMVectorSet(0.0f, 0.3f, -1.5f, 0.0f);
 	XMVECTOR At = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
 	XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	m_View = XMMatrixLookAtLH(Eye, At, Up);
 
-    // Initialize the projection matrix
 	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV2, width / (FLOAT)height, 0.01f, 100.0f);
 
     return S_OK;
@@ -368,7 +358,6 @@ HRESULT Renderer::InitBuffers() {
 }
 
 void Renderer::Update() {
-    // Rotate the cube
 	static float t = 0.0f;
     t += (float)XM_PI * 0.00005f;
 	m_World = XMMatrixRotationY(t);

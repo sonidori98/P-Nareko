@@ -23,7 +23,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 {
     if (FAILED(CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED)))
         return E_FAIL;
-    // 1. �E�B���h�E�N���X�̓o�^
+
     WNDCLASSEX wcex;
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW;
@@ -43,7 +43,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         return E_FAIL;
     }
 
-    // 2. �E�B���h�E�̍쐬
     HWND hWnd = CreateWindow(
         L"DirectX11WindowClass",
         L"P_Nareko",
@@ -63,18 +62,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         return E_FAIL;
     }
 
-    // 3. Renderer�̏�����
     if (FAILED(g_renderer.Init(hWnd)))
     {
         g_renderer.Cleanup();
         return E_FAIL;
     }
 
-    // 4. �E�B���h�E�̕\���ƍX�V
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
 
-    // 5. ���b�Z�[�W���[�v
     MSG msg = { 0 };
     while (WM_QUIT != msg.message)
     {
@@ -90,7 +86,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         }
     }
 
-    // 6. �I������
     g_renderer.Cleanup();
 
     return (int)msg.wParam;
