@@ -28,6 +28,7 @@ private:
 	ID3D11DepthStencilView* m_pDepthStencilView;
 	ID3D11DepthStencilState* m_pDepthStencilState;
 	ID3D11RasterizerState* m_pRasterizerState;
+	ID3D11BlendState* m_pBlendState;
 	ID3D11InputLayout* m_pVertexLayout;
 	ID3D11VertexShader* m_pVertexShader;
 	ID3D11PixelShader* m_pPixelShader;

@@ -61,7 +61,8 @@ struct PS_INPUT
 
 float4 PS(PS_INPUT input) : SV_Target
 {
-    return txDiffuse.Sample(samLinear, input.Tex) * input.Color;
+    float4 textureColor = txDiffuse.Sample(samLinear, input.Tex);
+    return lerp(input.Color, textureColor, textureColor.a);
 }
 )";
 
@@ -73,30 +74,30 @@ struct SimpleVertex {
 
 SimpleVertex vertices[] = {
     // Front face
-    { XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.5f, 0.0f) },
-    { XMFLOAT3(-0.5f, -0.5f, -0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-    { XMFLOAT3(0.5f, -0.5f, -0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
+    { XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.5f, 0.0f) },
+    { XMFLOAT3(-0.5f, -0.5f, -0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
+    { XMFLOAT3(0.5f, -0.5f, -0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
 
     // Right face
-    { XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.5f, 0.0f) },
-    { XMFLOAT3(0.5f, -0.5f, -0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-    { XMFLOAT3(0.5f, -0.5f, 0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
+    { XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.5f, 0.0f) },
+    { XMFLOAT3(0.5f, -0.5f, -0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
+    { XMFLOAT3(0.5f, -0.5f, 0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
 
     // Back face
-    { XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.5f, 0.0f) },
-    { XMFLOAT3(0.5f, -0.5f, 0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-    { XMFLOAT3(-0.5f, -0.5f, 0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
+    { XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.5f, 0.0f) },
+    { XMFLOAT3(0.5f, -0.5f, 0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
+    { XMFLOAT3(-0.5f, -0.5f, 0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
 
     // Left face
-    { XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.5f, 0.0f) },
-    { XMFLOAT3(-0.5f, -0.5f, 0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-    { XMFLOAT3(-0.5f, -0.5f, -0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
+    { XMFLOAT3(0.0f, 0.5f, 0.0f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.5f, 0.0f) },
+    { XMFLOAT3(-0.5f, -0.5f, 0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
+    { XMFLOAT3(-0.5f, -0.5f, -0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
 
     // Bottom face
-    { XMFLOAT3(-0.5f, -0.5f, -0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
-    { XMFLOAT3(0.5f, -0.5f, -0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
-    { XMFLOAT3(0.5f, -0.5f, 0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 0.0f) },
-    { XMFLOAT3(-0.5f, -0.5f, 0.5f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 0.0f) }
+    { XMFLOAT3(-0.5f, -0.5f, -0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
+    { XMFLOAT3(0.5f, -0.5f, -0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
+    { XMFLOAT3(0.5f, -0.5f, 0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(1.0f, 0.0f) },
+    { XMFLOAT3(-0.5f, -0.5f, 0.5f), XMFLOAT4(0.82f, 0.71f, 0.55f, 1.0f), XMFLOAT2(0.0f, 0.0f) }
 };
 
 WORD indices[] = {
@@ -119,7 +120,7 @@ WORD indices[] = {
 
 Renderer::Renderer()
     : m_pd3dDevice(nullptr), m_pd3dImmediateContext(nullptr), m_pSwapChain(nullptr),
-    m_pRenderTargetView(nullptr), m_pDepthStencil(nullptr), m_pDepthStencilView(nullptr), m_pDepthStencilState(nullptr), m_pRasterizerState(nullptr), m_pVertexLayout(nullptr), m_pVertexShader(nullptr),
+    m_pRenderTargetView(nullptr), m_pDepthStencil(nullptr), m_pDepthStencilView(nullptr), m_pDepthStencilState(nullptr), m_pRasterizerState(nullptr), m_pBlendState(nullptr), m_pVertexLayout(nullptr), m_pVertexShader(nullptr),
     m_pPixelShader(nullptr), m_pVertexBuffer(nullptr), m_pIndexBuffer(nullptr), m_pConstantBuffer(nullptr),
     m_pTextureRV(nullptr), m_pSamplerLinear(nullptr)
 {
@@ -278,6 +279,20 @@ HRESULT Renderer::InitDevice(HWND hWnd) {
     m_pd3dDevice->CreateRasterizerState(&rsDesc, &m_pRasterizerState);
     m_pd3dImmediateContext->RSSetState(m_pRasterizerState);
 
+    // Create the blend state
+    D3D11_BLEND_DESC blendDesc = {};
+    blendDesc.RenderTarget[0].BlendEnable = TRUE;
+    blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+    blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+    blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+    blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+    blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+    blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+    blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+    hr = m_pd3dDevice->CreateBlendState(&blendDesc, &m_pBlendState);
+    if (FAILED(hr))
+        return hr;
+
     // Initialize the view matrix
 	XMVECTOR Eye = XMVectorSet(0.0f, 0.3f, -1.5f, 0.0f);
 	XMVECTOR At = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
@@ -366,6 +381,10 @@ void Renderer::Render() {
 	m_pd3dImmediateContext->ClearRenderTargetView(m_pRenderTargetView, ClearColor);
     m_pd3dImmediateContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+    float blendFactor[] = { 0, 0, 0, 0 };
+    UINT sampleMask = 0xffffffff;
+    m_pd3dImmediateContext->OMSetBlendState(m_pBlendState, blendFactor, sampleMask);
+
     ConstantBuffer cb;
 	cb.mWorld = XMMatrixTranspose(m_World);
 	cb.mView = XMMatrixTranspose(m_View);
@@ -401,6 +420,7 @@ void Renderer::Cleanup() {
     if (m_pVertexLayout) m_pVertexLayout->Release();
     if (m_pVertexShader) m_pVertexShader->Release();
     if (m_pPixelShader) m_pPixelShader->Release();
+    if (m_pBlendState) m_pBlendState->Release();
     if (m_pRasterizerState) m_pRasterizerState->Release();
     if (m_pDepthStencilState) m_pDepthStencilState->Release();
     if (m_pDepthStencilView) m_pDepthStencilView->Release();
