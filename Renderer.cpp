@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include <d3dcompiler.h>
 #include "WICTextureLoader.h"
+#include "image.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -143,7 +144,7 @@ HRESULT Renderer::Init(HWND hWnd) {
     hr = InitBuffers();
     if (FAILED(hr)) return hr;
 
-    hr = CreateWICTextureFromFile(m_pd3dDevice, L"Nareko.png", nullptr, &m_pTextureRV);
+    hr = CreateWICTextureFromMemory(m_pd3dDevice, NAREKO_IMAGE, NAREKO_IMAGE_SIZE, nullptr, &m_pTextureRV);
     if (FAILED(hr))
         return hr;
 

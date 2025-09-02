@@ -134,11 +134,15 @@
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="DirectXHelpers.h" />
     <ClInclude Include="Effects.h" />
+    <ClInclude Include="image.h" />
     <ClInclude Include="LoaderHelpers.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlatformHelpers.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="WICTextureLoader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Nareko.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
